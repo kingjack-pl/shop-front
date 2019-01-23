@@ -10,6 +10,7 @@ import rootReducer from "./reducers";
 import App from "./components/App";
 import Home from "./components/Home";
 import SecretPage from "./components/SecretPage";
+import Cart from "./components/Cart";
 import NotFound from "./components/NotFound";
 
 import SignInForm from "./components/auth/SignInForm";
@@ -31,6 +32,7 @@ ReactDOM.render(
 					<Route path="/" exact component={ Home }/>
 					<Route path="/signin" component={ withRouter(SignInForm) }/>
 					<Route path="/secret" component={ SecretPage }/>
+					<Route path="/cart" component={ Cart }/>
 					<Route path="/signout" component={ SignOut }/>
 					<Route component={ NotFound }/>
 				</Switch>

@@ -1,6 +1,9 @@
 // import axios from "axios";
 // import { API_URL } from "../Config";
-import { AUTH_USER, AUTH_ERR } from "./types";
+
+import data from "./data";
+
+import { AUTH_USER, AUTH_ERR, FETCH_PRODUCTS, ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART } from "./types";
 
 export const signIn = (formData, callback) => async dispatch => {
 	try {
@@ -42,3 +45,22 @@ export const signOut = callback => {
 		payload: false
 	};
 };
+
+export const fetchProducts = () => ({
+	type: FETCH_PRODUCTS,
+	payload: data
+});
+
+export const addToCart = id => ({
+	type: ADD_TO_CART,
+	payload: id
+});
+
+export const removeFromCart = id => ({
+	type: REMOVE_FROM_CART,
+	payload: id
+});
+
+export const removeAllFromCart = () => ({
+	type: REMOVE_ALL_FROM_CART
+});

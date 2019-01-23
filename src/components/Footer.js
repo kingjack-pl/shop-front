@@ -1,11 +1,11 @@
 import React from "react";
 
-import Logo from "./Logo";
-
 export default () => {
 	return (
-        <footer className="navbar navbar-expand-sm navbar-dark bg-dark">
-            <Logo />
+        <footer className="py-5 bg-dark">
+            <div className="container">
+                <p className="m-0 text-center text-white">Copyright © ShopFront 2019</p>
+            </div>
         </footer>
 	);
 };

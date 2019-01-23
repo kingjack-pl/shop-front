@@ -1,9 +1,15 @@
 import React from "react";
 
+import ProductList from "./ProductList";
+import AsideCategory from "./AsideCategory";
+
 export default () => {
     return (
-        <div>
-            <h1>Home Page</h1>
+        <div className="container">
+            <div className="row">
+                <AsideCategory/>
+                <ProductList />
+            </div>
         </div>
     )
 };

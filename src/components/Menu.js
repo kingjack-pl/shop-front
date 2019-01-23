@@ -3,36 +3,57 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 class Menu extends Component {
-    renderLinks() {
-        if (this.props.isLogin) {
-            return (
-                <Fragment>
-                    <li className="nav-item"><Link className="nav-link" to="/signout">Sign Out</Link></li>
-                </Fragment>
-            );
-        } else {
-            return (
-                <Fragment>
-                    <li className="nav-item"><Link className="nav-link" to="/signin">Sign In</Link></li>
-                </Fragment>
-            )
-        }
-    }
-
     render() {
+        const { isLogin, arrCartItemsId } = this.props;
+        const cartQuantity = arrCartItemsId.length;
+
+        const renderLinks = () => {
+            if (isLogin) {
+                return (
+                    <Fragment>
+                        <Link className="nav-link" to="/signout">Sign Out</Link>
+                    </Fragment>
+                );
+            } else {
+                return (
+                    <Fragment>
+                        <Link className="nav-link" to="/signin">Sign In</Link>
+                    </Fragment>
+                )
+            }
+        };
+
+        const renderCartQuantity = () => {
+            if (cartQuantity) {
+                return (
+                    <ul className="navbar-nav flex-row ml-md-auto">
+                        <li>
+                            <Link className="nav-link" to="/cart">Cart&nbsp;
+                                <span className="rounded-circle bg-danger text-white">&nbsp;{cartQuantity}&nbsp;</span>
+                            </Link>
+                        </li>
+                    </ul>
+                )
+            }
+        };
+
         return (
             <div className="collapse navbar-collapse">
                 <ul className="navbar-nav">
-                    <li className="nav-item"><Link className="nav-link" to="/secret">Secret Page</Link></li>
-                    {this.renderLinks()}
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/secret">Secret Page</Link>
+                    </li>
+                    <li className="nav-item">{renderLinks()}</li>
                 </ul>
+                {renderCartQuantity()}
             </div>
         );
     }
 }
 
-const mapStateToProps = ({ auth: { isLogin } }) => ({
-    isLogin
+const mapStateToProps = ({ auth: { isLogin }, products: { arrCartItemsId } }) => ({
+    isLogin,
+    arrCartItemsId
 });
 
 export default connect(mapStateToProps)(Menu);

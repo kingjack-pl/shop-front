@@ -7,8 +7,10 @@ export default () => {
 	return (
         <header>
             <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-                <Logo />
-                <Menu />
+                <div className="container">
+                    <Logo />
+                    <Menu />
+                </div>
             </nav>
         </header>
 	);
