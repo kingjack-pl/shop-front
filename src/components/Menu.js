@@ -11,7 +11,8 @@ class Menu extends Component {
             if (isLogin) {
                 return (
                     <Fragment>
-                        <Link className="nav-link" to="/signout">Sign Out</Link>
+                         <li className="nav-item"><Link className="nav-link" to="/signout">Sign Out</Link></li>
+                         <li className="nav-item"><Link className="nav-link" to="/AddBook">AddBook</Link></li>
                     </Fragment>
                 );
             } else {
@@ -43,7 +44,7 @@ class Menu extends Component {
                     <li className="nav-item">
                         <Link className="nav-link" to="/secret">Secret Page</Link>
                     </li>
-                    <li className="nav-item">{renderLinks()}</li>
+                    {renderLinks()}
                 </ul>
                 {renderCartQuantity()}
             </div>

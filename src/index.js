@@ -15,7 +15,7 @@ import NotFound from "./components/NotFound";
 
 import SignInForm from "./components/auth/SignInForm";
 import SignOut from "./components/auth/SignOut";
-
+import AddBook from "./components/AddBook"
 const defaultState = {
 	auth: {
 		isLogin: localStorage.getItem("auth")
@@ -34,6 +34,7 @@ ReactDOM.render(
 					<Route path="/secret" component={ SecretPage }/>
 					<Route path="/cart" component={ Cart }/>
 					<Route path="/signout" component={ SignOut }/>
+					<Route path="/AddBook" component={ AddBook }/>
 					<Route component={ NotFound }/>
 				</Switch>
 			</App>
