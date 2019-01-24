@@ -8,7 +8,7 @@ const INIT = {
 export default (state = INIT, action) => {
 	switch (action.type) {
 		case AUTH_USER:
-			return { ...state, isLogin: action.payload };
+			return { ...state, isLogin: action.payload.token };
 		case AUTH_ERR:
 			return { ...state, errorMessage: action.payload };
 		default:

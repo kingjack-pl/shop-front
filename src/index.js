@@ -14,11 +14,12 @@ import Cart from "./components/Cart";
 import NotFound from "./components/NotFound";
 
 import SignInForm from "./components/auth/SignInForm";
+import SignUpForm from "./components/auth/SignUpForm";
 import SignOut from "./components/auth/SignOut";
 import AddBook from "./components/AddBook"
 const defaultState = {
 	auth: {
-		isLogin: localStorage.getItem("auth")
+		isLogin: localStorage.getItem("token")
 	}
 };
 
@@ -31,6 +32,7 @@ ReactDOM.render(
 				<Switch>
 					<Route path="/" exact component={ Home }/>
 					<Route path="/signin" component={ withRouter(SignInForm) }/>
+					<Route path="/signup" component={ withRouter(SignUpForm) }/>
 					<Route path="/secret" component={ SecretPage }/>
 					<Route path="/cart" component={ Cart }/>
 					<Route path="/signout" component={ SignOut }/>

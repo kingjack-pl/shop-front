@@ -18,7 +18,8 @@ class Menu extends Component {
             } else {
                 return (
                     <Fragment>
-                        <Link className="nav-link" to="/signin">Sign In</Link>
+                        <li className="nav-item"><Link className="nav-link" to="/signin">Sign In</Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/signup">Sign Up</Link></li>
                     </Fragment>
                 )
             }

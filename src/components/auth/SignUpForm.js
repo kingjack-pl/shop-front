@@ -2,17 +2,17 @@ import React, { Component } from "react";
 import { compose } from "redux";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
-import { signIn } from "../../actions";
+import { signUp } from "../../actions";
 import { Link } from "react-router-dom";
 
 import Loader from "../Loader";
 
-class SignInForm extends Component {
+class SignUpForm extends Component {
 	state = { loading: false };
 
 	onSubmit = values => {
 		this.setState({ loading: true });
-		this.props.signIn(values, () => {
+		this.props.signUp(values, () => {
 			this.setState({ loading: false });
 			this.props.history.push("/");
 		});
@@ -40,7 +40,7 @@ class SignInForm extends Component {
 			<div className="fullPage">
 				<Loader loading={this.state.loading}/>
 				<form onSubmit={handleSubmit(this.onSubmit)} className="login-form">
-					<h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
+					<h1 className="h3 mb-3 font-weight-normal">Please sign up</h1>
 					<Field
 						name="login"
 						type="text"
@@ -57,8 +57,8 @@ class SignInForm extends Component {
 					<div className="invalid-feedback">
 						{errorMessage}
 					</div>
-					<p>New to shopFront? <Link to="/signup">Create an account</Link>.</p>
-					<button className="btn btn-lg btn-primary btn-block">Sign in</button>
+					<p>Do you have an shopFront account? <Link to="/signin">Sign In</Link>.</p>
+					<button className="btn btn-lg btn-primary btn-block">Sign up</button>
 				</form>
 			</div>
 		);
@@ -84,6 +84,6 @@ const mapStateToProps = ({ auth: { errorMessage } }) => ({
 });
 
 export default compose(
-	reduxForm({validate, form: "SignIn"}),
-	connect(mapStateToProps, { signIn })
-)(SignInForm);
+	reduxForm({validate, form: "SignUp"}),
+	connect(mapStateToProps, { signUp })
+)(SignUpForm);

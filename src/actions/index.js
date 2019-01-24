@@ -8,21 +8,21 @@ import { AUTH_USER, AUTH_ERR, FETCH_PRODUCTS, ADD_TO_CART, REMOVE_FROM_CART, REM
 export const signIn = (formData, callback) => async dispatch => {
 	try {
 		// const response = await axios.post(
-		// 	`${API_URL}/signin`,
+		// 	`${API_URL}auth/signin`,
 		// 	formData
 		// );
 		let response = {
 			data: {
-				auth: true
+				token: true
 			}
 		};
 
 		dispatch({
 			type: AUTH_USER,
-			payload: response.data.auth
+			payload: response.data
 		});
 
-		localStorage.setItem("auth", response.data.auth);
+		localStorage.setItem("token", response.data.token);
 
 		setTimeout(() => {
 			callback();
@@ -35,8 +35,38 @@ export const signIn = (formData, callback) => async dispatch => {
 	}
 };
 
+export const signUp = (formData, callback) => async dispatch => {
+	try {
+		// const response = await axios.post(
+		// 	`${API_URL}auth/signup`,
+		// 	formData
+		// );
+		let response = {
+			data: {
+				token: true
+			}
+		};
+
+		dispatch({
+			type: AUTH_USER,
+			payload: response.data.token
+		});
+
+		localStorage.setItem("token", response.data.token);
+
+		setTimeout(() => {
+			callback();
+		}, 2000);
+	} catch (e) {
+		dispatch({
+			type: AUTH_ERR,
+			payload: "Error: Connection Error with API Endpoint or there is no such user"
+		});
+	}
+};
+
 export const signOut = callback => {
-	localStorage.removeItem("auth");
+	localStorage.removeItem("token");
 
 	callback();
 
