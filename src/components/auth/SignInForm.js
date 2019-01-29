@@ -36,13 +36,15 @@ class SignInForm extends Component {
 	render() {
 		const { handleSubmit, errorMessage } = this.props;
 
+		console.log(errorMessage);
+
 		return (
 			<div className="fullPage">
-				<Loader loading={this.state.loading}/>
+				<Loader loading={errorMessage ? false : this.state.loading}/>
 				<form onSubmit={handleSubmit(this.onSubmit)} className="login-form">
 					<h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
 					<Field
-						name="login"
+						name="username"
 						type="text"
 						placeholder="Login"
 						component={this.renderField}
@@ -54,7 +56,7 @@ class SignInForm extends Component {
 						component={this.renderField}
 
 					/>
-					<div className="invalid-feedback">
+					<div className="">
 						{errorMessage}
 					</div>
 					<p>New to shopFront? <Link to="/signup">Create an account</Link>.</p>

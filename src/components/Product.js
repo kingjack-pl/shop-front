@@ -6,7 +6,7 @@ import { addToCart, removeFromCart } from "../actions";
 class Product extends Component {
 
     render() {
-        const { data: { id, name, price, desc, cat, src }, isInCart, addToCart, removeFromCart } = this.props;
+        const { data: { id, title, author, price, description, categories, photo }, isInCart, addToCart, removeFromCart } = this.props;
 
         let btnAddOrRemoveFromCart;
 
@@ -33,12 +33,13 @@ class Product extends Component {
         return (
             <div className="col-lg-4 col-md-6 mb-4">
                 <div className="card h-100">
-                    <img className="card-img-top" src={src} alt={name} />
+                    <img className="card-img-top" src={photo} alt={title} />
                     <div className="card-body">
-                        <h4 className="card-title">{name}</h4>
-                        <p className="card-text">{cat}</p>
+                        <h4 className="card-title">{title}</h4>
+                        <p className="card-text">{"Author: " + author}</p>
+                        <p className="card-text">{categories}</p>
                         <h5>{price} $</h5>
-                        <p className="card-text">{desc}</p>
+                        <p className="card-text">{description}</p>
                         {btnAddOrRemoveFromCart}
                     </div>
                 </div>

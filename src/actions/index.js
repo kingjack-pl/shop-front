@@ -1,22 +1,22 @@
-// import axios from "axios";
-// import { API_URL } from "../Config";
+import axios from "axios";
+import { API_URL } from "../Config";
 
 import data from "./data";
 
-import { AUTH_USER, AUTH_ERR, FETCH_PRODUCTS, ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART } from "./types";
+import { AUTH_USER, AUTH_ERR, FETCH_PRODUCTS, ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART, FETCH_ORDERS, ADD_PRODUCTS } from "./types";
 
 export const signIn = (formData, callback) => async dispatch => {
 	try {
-		// const response = await axios.post(
-		// 	`${API_URL}auth/signin`,
-		// 	formData
-		// );
-		let response = {
-			data: {
-				token: true,
-				admin: true
-			}
-		};
+		const response = await axios.post(
+			`${API_URL}auth/signin`,
+			formData
+		);
+		// let response = {
+		// 	data: {
+		// 		token: true,
+		// 		admin: true
+		// 	}
+		// };
 
 		dispatch({
 			type: AUTH_USER,
@@ -84,6 +84,17 @@ export const fetchProducts = () => ({
 	payload: data
 });
 
+export const addProduct = formData => async dispatch => {
+
+		let token = localStorage.getItem("token");
+
+		const response = await axios.post(`${API_URL}products/addauth`,
+			formData, { headers: {"Authorization" : "Bearer " + token} });
+
+		console.log(formData);
+		console.log(response);
+};
+
 export const addToCart = id => ({
 	type: ADD_TO_CART,
 	payload: id
@@ -96,4 +107,9 @@ export const removeFromCart = id => ({
 
 export const removeAllFromCart = () => ({
 	type: REMOVE_ALL_FROM_CART
+});
+
+export const fetchOrders = arrCartItems => ({
+	type: FETCH_ORDERS,
+	payload: arrCartItems
 });

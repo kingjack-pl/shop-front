@@ -37,7 +37,7 @@ ReactDOM.render(
 					<Route path="/secret" component={ SecretPage }/>
 					<Route path="/cart" component={ Cart }/>
 					<Route path="/signout" component={ SignOut }/>
-					<Route path="/AddBook" component={ AddBook }/>
+					<Route path="/addbook" component={ withRouter(AddBook) }/>
 					<Route component={ NotFound }/>
 				</Switch>
 			</App>
