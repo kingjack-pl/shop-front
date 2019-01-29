@@ -4,15 +4,21 @@ import { connect } from "react-redux";
 
 class Menu extends Component {
     render() {
-        const { isLogin, arrCartItemsId } = this.props;
+        const { isLogin, isAdmin, arrCartItemsId } = this.props;
         const cartQuantity = arrCartItemsId.length;
 
         const renderLinks = () => {
-            if (isLogin) {
+            if(isAdmin && isLogin) {
+                return (
+                    <Fragment>
+                        <li className="nav-item"><Link className="nav-link" to="/signout">Sign Out</Link></li>
+                        <li className="nav-item"><Link className="nav-link" to="/AddBook">AddBook</Link></li>
+                    </Fragment>
+                );
+            } else if (isLogin) {
                 return (
                     <Fragment>
                          <li className="nav-item"><Link className="nav-link" to="/signout">Sign Out</Link></li>
-                         <li className="nav-item"><Link className="nav-link" to="/AddBook">AddBook</Link></li>
                     </Fragment>
                 );
             } else {
@@ -53,8 +59,9 @@ class Menu extends Component {
     }
 }
 
-const mapStateToProps = ({ auth: { isLogin }, products: { arrCartItemsId } }) => ({
+const mapStateToProps = ({ auth: { isLogin, isAdmin }, products: { arrCartItemsId } }) => ({
     isLogin,
+    isAdmin,
     arrCartItemsId
 });
 

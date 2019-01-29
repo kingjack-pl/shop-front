@@ -13,7 +13,8 @@ export const signIn = (formData, callback) => async dispatch => {
 		// );
 		let response = {
 			data: {
-				token: true
+				token: true,
+				admin: true
 			}
 		};
 
@@ -23,6 +24,7 @@ export const signIn = (formData, callback) => async dispatch => {
 		});
 
 		localStorage.setItem("token", response.data.token);
+		localStorage.setItem("admin", response.data.admin);
 
 		setTimeout(() => {
 			callback();
@@ -67,6 +69,7 @@ export const signUp = (formData, callback) => async dispatch => {
 
 export const signOut = callback => {
 	localStorage.removeItem("token");
+	localStorage.removeItem("admin");
 
 	callback();
 

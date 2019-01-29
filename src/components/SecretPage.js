@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import requireAuth from "./requireAuth";
+import requireIsLogin from "./requireIsLogin";
 
 class SecretPage extends Component {
     render() {
@@ -8,4 +8,4 @@ class SecretPage extends Component {
     }
 }
 
-export default requireAuth(SecretPage);
+export default requireIsLogin(SecretPage);

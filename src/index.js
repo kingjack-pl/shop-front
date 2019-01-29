@@ -19,7 +19,8 @@ import SignOut from "./components/auth/SignOut";
 import AddBook from "./components/AddBook"
 const defaultState = {
 	auth: {
-		isLogin: localStorage.getItem("token")
+		isLogin: localStorage.getItem("token"),
+		isAdmin: localStorage.getItem("admin"),
 	}
 };
 
