@@ -5,7 +5,7 @@ export default [
 		author: "Book 1",
 		price: 29.97,
 		description: "Description for first book",
-		categories: "Category 1",
+		categories: ["Category 1", "Category 2"],
 		photo: "http://placehold.it/700x400"
 	},
 	{
@@ -14,7 +14,7 @@ export default [
 		author: "Book 2",
 		price: 39.97,
 		description: "Description for second book",
-		categories: "Category 1",
+		categories: ["Category 1", "Category 2"],
 		photo: "http://placehold.it/700x400"
 	},
 	{
@@ -23,7 +23,7 @@ export default [
 		author: "Book 3",
 		price: 29.97,
 		description: "Description for third book",
-		categories: "Category 1",
+		categories: ["Category 1", "Category 2"],
 		photo: "http://placehold.it/700x400"
 	},
 	{
@@ -32,7 +32,7 @@ export default [
 		author: "Book 4",
 		price: 39.97,
 		description: "Description for fourth book",
-		categories: "Category 1",
+		categories: ["Category 1", "Category 2"],
 		photo: "http://placehold.it/700x400"
 	},
 	{
@@ -41,7 +41,7 @@ export default [
 		author: "Book 5",
 		price: 29.97,
 		description: "Description for fifth book",
-		categories: "Category 1",
+		categories: ["Category 1", "Category 2"],
 		photo: "http://placehold.it/700x400"
 	},
 	{
@@ -50,7 +50,7 @@ export default [
 		author: "Book 6",
 		price: 39.97,
 		description: "Description for sixth book",
-		categories: "Category 1",
+		categories: ["Category 1", "Category 2"],
 		photo: "http://placehold.it/700x400"
 	},
 ]

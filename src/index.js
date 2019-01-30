@@ -16,7 +16,8 @@ import NotFound from "./components/NotFound";
 import SignInForm from "./components/auth/SignInForm";
 import SignUpForm from "./components/auth/SignUpForm";
 import SignOut from "./components/auth/SignOut";
-import AddBook from "./components/AddBook"
+import AddBook from "./components/AddBook";
+
 const defaultState = {
 	auth: {
 		isLogin: localStorage.getItem("token"),

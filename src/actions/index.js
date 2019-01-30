@@ -3,29 +3,26 @@ import { API_URL } from "../Config";
 
 import data from "./data";
 
-import { AUTH_USER, AUTH_ERR, FETCH_PRODUCTS, ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART, FETCH_ORDERS, ADD_PRODUCTS } from "./types";
+import { ADD_ERROR, ADD_SUCCESS, AUTH_USER, AUTH_ERR, FETCH_PRODUCTS, ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART, FETCH_ORDERS } from "./types";
 
 export const signIn = (formData, callback) => async dispatch => {
 	try {
-		const response = await axios.post(
-			`${API_URL}auth/signin`,
-			formData
-		);
-		// let response = {
-		// 	data: {
-		// 		token: true,
-		// 		admin: true
-		// 	}
-		// };
-
+		// const response = await axios.post(
+		// 	`${API_URL}auth/signin`,
+		// 	formData
+		// );
+		let response = {
+			data: {
+				token: true,
+				admin: true
+			}
+		};
 		dispatch({
 			type: AUTH_USER,
 			payload: response.data
 		});
-
 		localStorage.setItem("token", response.data.token);
 		localStorage.setItem("admin", response.data.admin);
-
 		setTimeout(() => {
 			callback();
 		}, 2000);
@@ -48,14 +45,11 @@ export const signUp = (formData, callback) => async dispatch => {
 				token: true
 			}
 		};
-
 		dispatch({
 			type: AUTH_USER,
 			payload: response.data.token
 		});
-
 		localStorage.setItem("token", response.data.token);
-
 		setTimeout(() => {
 			callback();
 		}, 2000);
@@ -70,9 +64,7 @@ export const signUp = (formData, callback) => async dispatch => {
 export const signOut = callback => {
 	localStorage.removeItem("token");
 	localStorage.removeItem("admin");
-
 	callback();
-
 	return {
 		type: AUTH_USER,
 		payload: false
@@ -85,14 +77,20 @@ export const fetchProducts = () => ({
 });
 
 export const addProduct = formData => async dispatch => {
-
+	try {
 		let token = localStorage.getItem("token");
-
-		const response = await axios.post(`${API_URL}products/addauth`,
-			formData, { headers: {"Authorization" : "Bearer " + token} });
-
-		console.log(formData);
-		console.log(response);
+		await axios.post(`${API_URL}products/addauth`,
+			formData, {headers:{"Authorization" : "Bearer " + token}});
+		dispatch({
+			type: ADD_SUCCESS,
+			payload: "The product has been added successfully!"
+		});
+	} catch (e) {
+		dispatch({
+			type: ADD_ERROR,
+			payload: e.message
+		});
+	}
 };
 
 export const addToCart = id => ({

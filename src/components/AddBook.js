@@ -1,13 +1,19 @@
 import React, { Component } from "react";
-import { Field, reduxForm } from "redux-form";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { Field, reduxForm } from "redux-form";
 import { addProduct } from "../actions";
+
+import NotificationDisplay from "./NotificationDisplay";
+
+import Multiselect from "react-widgets/lib/Multiselect";
+import "react-widgets/dist/css/react-widgets.css";
 
 class AddBook extends Component {
     onSubmit = values => {
         this.props.addProduct(values);
     };
+
     renderField = field => {
         const isShowError = field.meta.touched && field.meta.error;
         return (
@@ -25,12 +31,26 @@ class AddBook extends Component {
             </div>
     )};
 
+    renderMultiselect = ({ input, data, valueField, textField }) => (
+        <div className="form-group">
+            <Multiselect {...input}
+                 onBlur={() => input.onBlur()}
+                 value={input.value || []}
+                 data={data}
+                 valueField={valueField}
+                 textField={textField}
+                 placeholder="Categories"
+            />
+        </div>
+    );
+
     render() {
         const { handleSubmit } = this.props;
 
         return(
             <div className="fullPage">
                 <form onSubmit={handleSubmit(this.onSubmit)} className="login-form">
+                    <NotificationDisplay />
                     <h1 className="h3 mb-3 font-weight-normal">Add Product</h1>
                     <Field
                         name="title"
@@ -43,7 +63,6 @@ class AddBook extends Component {
                         type="text"
                         placeholder="Author"
                         component={this.renderField}
-
                     />
                     <Field
                         name="price"
@@ -58,18 +77,17 @@ class AddBook extends Component {
                         component={this.renderField}
                     />
                     <Field
-                        name="categories"
-                        type="text"
-                        placeholder="Categories"
-                        component={this.renderField}
-                    />
-                    <Field
                         name="photo"
                         type="text"
                         placeholder="Photo Url"
                         component={this.renderField}
                     />
-                    <button className="btn btn-lg btn-primary btn-block">Add product</button>
+                    <Field
+                        name="categories"
+                        component={this.renderMultiselect}
+                        data={[ 'Category 1', 'Category 2' ]}
+                    />
+                    <button className="btn btn-lg btn-primary btn-block mt-3">Add product</button>
                 </form>
             </div>
         )
