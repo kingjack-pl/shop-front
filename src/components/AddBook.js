@@ -6,8 +6,10 @@ import { addProduct } from "../actions";
 
 import NotificationDisplay from "./NotificationDisplay";
 
-import Multiselect from "react-widgets/lib/Multiselect";
-import "react-widgets/dist/css/react-widgets.css";
+
+import { Multiselect } from "react-widgets";
+
+import 'react-widgets/dist/css/react-widgets.css';
 
 class AddBook extends Component {
     onSubmit = values => {

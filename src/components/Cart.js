@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import {connect} from "react-redux";
+import { removeAllFromCart, addOrder } from "../actions";
 
-import { removeAllFromCart } from "../actions";
+import NotificationDisplay from "./NotificationDisplay";
 
 class Cart extends Component {
     componentDidMount() {
@@ -19,7 +20,7 @@ class Cart extends Component {
     };
 
     render() {
-        const { arrProductsList, arrCartItemsId } = this.props;
+        const { arrProductsList, arrCartItemsId, removeAllFromCart, addOrder } = this.props;
         const arrCartItems = arrCartItemsId.map( cartItemId => arrProductsList.find( product => product.id === cartItemId ));
         const renderCartItems = arrCartItems.map( cartItem => <li key={cartItem.id} className="list-group-item d-flex justify-content-between align-items-center">{cartItem.name}<span
             className="badge badge-primary badge-pill">{cartItem.price} $</span></li> );
@@ -29,13 +30,15 @@ class Cart extends Component {
             <div className="container">
                 <div className="row">
                     <div className="col-lg-12 my-5">
+                        <NotificationDisplay />
                         <h5>Cart Items</h5>
                         <div className="list-group">
                             {renderCartItems}
                         </div>
                         <h5 className="mt-3">Total Cost:</h5>
                         <p>{totalCost} $</p>
-                        <button className="btn btn-danger" onClick={() => this.props.removeAllFromCart()}>REMOVE ALL FROM CART</button>
+                        <button className="btn btn-danger" onClick={() => removeAllFromCart()}>REMOVE ALL FROM CART</button>
+                        <button className="ml-3 btn btn-primary" onClick={() => addOrder()}>ADD ORDER</button>
                     </div>
                 </div>
             </div>
@@ -48,4 +51,4 @@ const mapStateToProps = ({ products: { arrProductsList, arrCartItemsId } }) => (
     arrCartItemsId
 });
 
-export default connect(mapStateToProps, { removeAllFromCart })(Cart);
+export default connect(mapStateToProps, { removeAllFromCart, addOrder })(Cart);

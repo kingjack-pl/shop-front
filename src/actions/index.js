@@ -3,7 +3,7 @@ import { API_URL } from "../Config";
 
 import data from "./data";
 
-import { ADD_ERROR, ADD_SUCCESS, AUTH_USER, AUTH_ERR, FETCH_PRODUCTS, ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART, FETCH_ORDERS } from "./types";
+import { ADD_ERROR, ADD_SUCCESS, AUTH_USER, AUTH_ERR, FETCH_PRODUCTS, ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART } from "./types";
 
 export const signIn = (formData, callback) => async dispatch => {
 	try {
@@ -78,7 +78,7 @@ export const fetchProducts = () => ({
 
 export const addProduct = formData => async dispatch => {
 	try {
-		let token = localStorage.getItem("token");
+		const token = localStorage.getItem("token");
 		await axios.post(`${API_URL}products/addauth`,
 			formData, {headers:{"Authorization" : "Bearer " + token}});
 		dispatch({
@@ -107,7 +107,19 @@ export const removeAllFromCart = () => ({
 	type: REMOVE_ALL_FROM_CART
 });
 
-export const fetchOrders = arrCartItems => ({
-	type: FETCH_ORDERS,
-	payload: arrCartItems
-});
+export const addOrder = arrCartItems => async dispatch =>{
+	try {
+		const token = localStorage.getItem("token");
+		await axios.post(`${API_URL}products/addauth`,
+			arrCartItems, {headers:{"Authorization" : "Bearer " + token}});
+		dispatch({
+			type: ADD_SUCCESS,
+			payload: "The order has been sent!"
+		});
+	} catch (e) {
+		dispatch({
+			type: ADD_ERROR,
+			payload: e.message
+		});
+	}
+};
