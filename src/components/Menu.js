@@ -7,27 +7,26 @@ class Menu extends Component {
         const { isLogin, isAdmin, userName, arrCartItemsId } = this.props;
         const cartQuantity = arrCartItemsId.length;
 
-        const renderSignInAndSignUp = () => {
-            if(isLogin) {
-                return null
-            }
-            return (
-                <Fragment>
-                    <li className="nav-item"><Link className="nav-link" to="/signin">Sign In</Link></li>
-                    <span className="nav-link">or</span>
-                    <li className="nav-item"><Link className="nav-link" to="/signup">Sign Up</Link></li>
-                </Fragment>
-            )
-        };
-
-        const renderDropdownMenu = () => {
+        const renderDropdownLinksOrSignLinks = () => {
             if(isLogin) {
                 return (
-                    <div className="dropdown-menu" aria-labelledby="dropdown05">
-                        {isAdmin ? <Link className="dropdown-item" to="/AddBook">AddBook</Link> : null}
-                        <Link className="dropdown-item" to="/cart">My order</Link>
-                        <Link className="dropdown-item" to="/signout">Sign Out</Link>
-                    </div>
+                    <li className="nav-item dropdown">
+                        <span className="nav-link dropdown-toggle" id="dropdown05"
+                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hello {userName}</span>
+                        <div className="dropdown-menu" aria-labelledby="dropdown05">
+                            {isAdmin ? <Link className="dropdown-item" to="/AddBook">AddBook</Link> : null}
+                            <Link className="dropdown-item" to="/cart">My order</Link>
+                            <Link className="dropdown-item" to="/signout">Sign Out</Link>
+                        </div>
+                    </li>
+                )
+            } else {
+                return (
+                    <Fragment>
+                        <li className="nav-item"><Link className="nav-link" to="/signin">Sign In</Link></li>
+                        <span className="nav-link">or</span>
+                        <li className="nav-item"><Link className="nav-link" to="/signup">Sign Up</Link></li>
+                    </Fragment>
                 )
             }
         };
@@ -40,12 +39,7 @@ class Menu extends Component {
                             <span className="rounded-circle bg-danger text-white">&nbsp;{cartQuantity}&nbsp;</span>
                         </Link>
                     </li> : null}
-                    <li className="nav-item dropdown">
-                        <span className={`nav-link ${isLogin ? "dropdown-toggle" : ""}`} id="dropdown05"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hello {userName}</span>
-                        {renderDropdownMenu()}
-                    </li>
-                    {renderSignInAndSignUp()}
+                    {renderDropdownLinksOrSignLinks()}
                 </ul>
             )
         };
