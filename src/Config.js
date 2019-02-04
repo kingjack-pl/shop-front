@@ -1,1 +1,1 @@
-export const API_URL = "http://10.254.5.198:8081/";
+export const API_URL = "https://shopproject123.herokuapp.com/";

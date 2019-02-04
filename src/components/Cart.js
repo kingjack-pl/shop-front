@@ -22,7 +22,7 @@ class Cart extends Component {
     render() {
         const { arrProductsList, arrCartItemsId, removeAllFromCart, addOrder } = this.props;
         const arrCartItems = arrCartItemsId.map( cartItemId => arrProductsList.find( product => product.id === cartItemId ));
-        const renderCartItems = arrCartItems.map( cartItem => <li key={cartItem.id} className="list-group-item d-flex justify-content-between align-items-center">{cartItem.name}<span
+        const renderCartItems = arrCartItems.map( cartItem => <li key={cartItem.id} className="list-group-item d-flex justify-content-between align-items-center">{cartItem.title}<span
             className="badge badge-primary badge-pill">{cartItem.price} $</span></li> );
         const totalCost = arrCartItems.reduce( (prev, curr) => prev + curr.price, 0 );
 
@@ -38,7 +38,7 @@ class Cart extends Component {
                         <h5 className="mt-3">Total Cost:</h5>
                         <p>{totalCost} $</p>
                         <button className="btn btn-danger" onClick={() => removeAllFromCart()}>REMOVE ALL FROM CART</button>
-                        <button className="ml-3 btn btn-primary" onClick={() => addOrder()}>ADD ORDER</button>
+                        <button className="ml-3 btn btn-primary" onClick={() => addOrder(arrCartItems)}>ADD ORDER</button>
                     </div>
                 </div>
             </div>

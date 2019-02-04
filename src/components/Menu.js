@@ -4,45 +4,50 @@ import { connect } from "react-redux";
 
 class Menu extends Component {
     render() {
-        const { isLogin, isAdmin, arrCartItemsId } = this.props;
+        const { isLogin, isAdmin, userName, arrCartItemsId } = this.props;
         const cartQuantity = arrCartItemsId.length;
 
-        const renderLinks = () => {
-            if(isAdmin && isLogin) {
+        const renderSignInAndSignUp = () => {
+            if(isLogin) {
+                return null
+            }
+            return (
+                <Fragment>
+                    <li className="nav-item"><Link className="nav-link" to="/signin">Sign In</Link></li>
+                    <span className="nav-link">or</span>
+                    <li className="nav-item"><Link className="nav-link" to="/signup">Sign Up</Link></li>
+                </Fragment>
+            )
+        };
+
+        const renderDropdownMenu = () => {
+            if(isLogin) {
                 return (
-                    <Fragment>
-                        <li className="nav-item"><Link className="nav-link" to="/signout">Sign Out</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/AddBook">AddBook</Link></li>
-                    </Fragment>
-                );
-            } else if (isLogin) {
-                return (
-                    <Fragment>
-                         <li className="nav-item"><Link className="nav-link" to="/signout">Sign Out</Link></li>
-                    </Fragment>
-                );
-            } else {
-                return (
-                    <Fragment>
-                        <li className="nav-item"><Link className="nav-link" to="/signin">Sign In</Link></li>
-                        <li className="nav-item"><Link className="nav-link" to="/signup">Sign Up</Link></li>
-                    </Fragment>
+                    <div className="dropdown-menu" aria-labelledby="dropdown05">
+                        {isAdmin ? <Link className="dropdown-item" to="/AddBook">AddBook</Link> : null}
+                        <Link className="dropdown-item" to="/cart">My order</Link>
+                        <Link className="dropdown-item" to="/signout">Sign Out</Link>
+                    </div>
                 )
             }
         };
 
-        const renderCartQuantity = () => {
-            if (cartQuantity) {
-                return (
-                    <ul className="navbar-nav flex-row ml-md-auto">
-                        <li>
-                            <Link className="nav-link" to="/cart">Cart&nbsp;
-                                <span className="rounded-circle bg-danger text-white">&nbsp;{cartQuantity}&nbsp;</span>
-                            </Link>
-                        </li>
-                    </ul>
-                )
-            }
+        const renderRightLinks = () => {
+            return (
+                <ul id="navbarNavDropdown" className="navbar-nav flex-row ml-md-auto">
+                    {cartQuantity ? <li>
+                        <Link className="nav-link" to="/cart">Cart&nbsp;
+                            <span className="rounded-circle bg-danger text-white">&nbsp;{cartQuantity}&nbsp;</span>
+                        </Link>
+                    </li> : null}
+                    <li className="nav-item dropdown">
+                        <span className={`nav-link ${isLogin ? "dropdown-toggle" : ""}`} id="dropdown05"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hello {userName}</span>
+                        {renderDropdownMenu()}
+                    </li>
+                    {renderSignInAndSignUp()}
+                </ul>
+            )
         };
 
         return (
@@ -51,17 +56,17 @@ class Menu extends Component {
                     <li className="nav-item">
                         <Link className="nav-link" to="/secret">Secret Page</Link>
                     </li>
-                    {renderLinks()}
                 </ul>
-                {renderCartQuantity()}
+                {renderRightLinks()}
             </div>
         );
     }
 }
 
-const mapStateToProps = ({ auth: { isLogin, isAdmin }, products: { arrCartItemsId } }) => ({
+const mapStateToProps = ({ auth: { isLogin, isAdmin, userName }, products: { arrCartItemsId } }) => ({
     isLogin,
     isAdmin,
+    userName,
     arrCartItemsId
 });
 

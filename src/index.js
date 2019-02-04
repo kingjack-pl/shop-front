@@ -18,10 +18,15 @@ import SignUpForm from "./components/auth/SignUpForm";
 import SignOut from "./components/auth/SignOut";
 import AddBook from "./components/AddBook";
 
+import { isLogin, isAdmin } from "./actions/helpers";
+
+const user = JSON.parse(localStorage.getItem("user")) || {};
+
 const defaultState = {
 	auth: {
-		isLogin: localStorage.getItem("token"),
-		isAdmin: localStorage.getItem("admin"),
+		isLogin: isLogin(user.token),
+		isAdmin: isAdmin(user.role),
+		userName: user.username,
 	}
 };
 

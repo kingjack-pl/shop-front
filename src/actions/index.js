@@ -7,25 +7,16 @@ import { ADD_ERROR, ADD_SUCCESS, AUTH_USER, AUTH_ERR, FETCH_PRODUCTS, ADD_TO_CAR
 
 export const signIn = (formData, callback) => async dispatch => {
 	try {
-		// const response = await axios.post(
-		// 	`${API_URL}auth/signin`,
-		// 	formData
-		// );
-		let response = {
-			data: {
-				token: true,
-				admin: true
-			}
-		};
+		const response = await axios.post(
+			`${API_URL}auth/signin`,
+			formData
+		);
 		dispatch({
 			type: AUTH_USER,
 			payload: response.data
 		});
-		localStorage.setItem("token", response.data.token);
-		localStorage.setItem("admin", response.data.admin);
-		setTimeout(() => {
-			callback();
-		}, 2000);
+		localStorage.setItem("user", JSON.stringify(response.data));
+		callback();
 	} catch (e) {
 		dispatch({
 			type: AUTH_ERR,
@@ -36,23 +27,16 @@ export const signIn = (formData, callback) => async dispatch => {
 
 export const signUp = (formData, callback) => async dispatch => {
 	try {
-		// const response = await axios.post(
-		// 	`${API_URL}auth/signup`,
-		// 	formData
-		// );
-		let response = {
-			data: {
-				token: true
-			}
-		};
+		const response = await axios.post(
+			`${API_URL}auth/signup`,
+			formData
+		);
 		dispatch({
 			type: AUTH_USER,
-			payload: response.data.token
+			payload: response.data
 		});
-		localStorage.setItem("token", response.data.token);
-		setTimeout(() => {
-			callback();
-		}, 2000);
+		localStorage.setItem("user", JSON.stringify(response.data));
+		callback();
 	} catch (e) {
 		dispatch({
 			type: AUTH_ERR,
@@ -62,14 +46,33 @@ export const signUp = (formData, callback) => async dispatch => {
 };
 
 export const signOut = callback => {
-	localStorage.removeItem("token");
-	localStorage.removeItem("admin");
+	localStorage.removeItem("user");
 	callback();
 	return {
 		type: AUTH_USER,
 		payload: false
 	};
 };
+
+// export const fetchProducts = () => async dispatch => {
+// 	try {
+// 		const response = await axios.get(
+// 			`${API_URL}products`
+// 		);
+//
+// 		console.log("response", response.data);
+//
+// 		dispatch({
+// 			type: FETCH_PRODUCTS,
+// 			payload: response.data
+// 		});
+// 	} catch (e) {
+// 		dispatch({
+// 			type: ADD_ERROR,
+// 			payload: e.message
+// 		});
+// 	}
+// };
 
 export const fetchProducts = () => ({
 	type: FETCH_PRODUCTS,
@@ -78,7 +81,8 @@ export const fetchProducts = () => ({
 
 export const addProduct = formData => async dispatch => {
 	try {
-		const token = localStorage.getItem("token");
+		const user = JSON.parse(localStorage.getItem("user"));
+		const token = user.token;
 		await axios.post(`${API_URL}products/addauth`,
 			formData, {headers:{"Authorization" : "Bearer " + token}});
 		dispatch({
@@ -109,7 +113,8 @@ export const removeAllFromCart = () => ({
 
 export const addOrder = arrCartItems => async dispatch =>{
 	try {
-		const token = localStorage.getItem("token");
+		const user = JSON.parse(localStorage.getItem("user"));
+		const token = user.token;
 		await axios.post(`${API_URL}products/addauth`,
 			arrCartItems, {headers:{"Authorization" : "Bearer " + token}});
 		dispatch({

@@ -35,9 +35,6 @@ class SignInForm extends Component {
 
 	render() {
 		const { handleSubmit, errorMessage } = this.props;
-
-		console.log(errorMessage);
-
 		return (
 			<div className="fullPage">
 				<Loader loading={errorMessage ? false : this.state.loading}/>
