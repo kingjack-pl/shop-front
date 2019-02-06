@@ -54,30 +54,30 @@ export const signOut = callback => {
 	};
 };
 
-// export const fetchProducts = () => async dispatch => {
-// 	try {
-// 		const response = await axios.get(
-// 			`${API_URL}products`
-// 		);
-//
-// 		console.log("response", response.data);
-//
-// 		dispatch({
-// 			type: FETCH_PRODUCTS,
-// 			payload: response.data
-// 		});
-// 	} catch (e) {
-// 		dispatch({
-// 			type: ADD_ERROR,
-// 			payload: e.message
-// 		});
-// 	}
-// };
+export const fetchProducts = () => async dispatch => {
+	try {
+		const response = await axios.get(
+			`${API_URL}products`
+		);
 
-export const fetchProducts = () => ({
-	type: FETCH_PRODUCTS,
-	payload: data
-});
+		console.log("response", response.data);
+
+		dispatch({
+			type: FETCH_PRODUCTS,
+			payload: response.data
+		});
+	} catch (e) {
+		dispatch({
+			type: ADD_ERROR,
+			payload: e.message
+		});
+	}
+};
+
+// export const fetchProducts = () => ({
+// 	type: FETCH_PRODUCTS,
+// 	payload: data
+// });
 
 export const addProduct = formData => async dispatch => {
 	try {
