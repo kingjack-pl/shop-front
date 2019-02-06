@@ -1,23 +1,29 @@
 import axios from "axios";
 import { API_URL } from "../Config";
-import { ADD_ERROR, ADD_SUCCESS, AUTH_USER, AUTH_ERR, FETCH_PRODUCTS, ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART } from "./types";
+import { ADD_ERROR, ADD_SUCCESS, AUTH_USER, FETCH_PRODUCTS, ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART } from "./types";
+
+const authUser = token => {
+	return axios.post(`${API_URL}me`,null, {headers:{"Authorization" : "Bearer " + token}});
+};
 
 export const signIn = (formData, callback) => async dispatch => {
 	try {
-		const response = await axios.post(
+		const responseSignIn = await axios.post(
 			`${API_URL}auth/signin`,
 			formData
 		);
+		const responseAuth = await authUser(responseSignIn.data.token);
+		const response = Object.assign(responseSignIn.data, responseAuth.data);
+		localStorage.setItem("user", JSON.stringify(response));
 		dispatch({
 			type: AUTH_USER,
-			payload: response.data
+			payload: response
 		});
-		localStorage.setItem("user", JSON.stringify(response.data));
 		callback();
 	} catch (e) {
 		dispatch({
-			type: AUTH_ERR,
-			payload: "Error: Connection Error with API Endpoint"
+			type: ADD_ERROR,
+			payload: "Error: Login failed!"
 		});
 	}
 };
@@ -36,7 +42,7 @@ export const signUp = (formData, callback) => async dispatch => {
 		callback();
 	} catch (e) {
 		dispatch({
-			type: AUTH_ERR,
+			type: ADD_ERROR,
 			payload: "Error: Connection Error with API Endpoint or there is no such user"
 		});
 	}

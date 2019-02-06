@@ -11,7 +11,7 @@ class Menu extends Component {
             if(isLogin) {
                 return (
                     <li className="nav-item dropdown">
-                        <span className="nav-link dropdown-toggle" id="dropdown05"
+                        <span className="nav-link dropdown-toggle btn" id="dropdown05"
                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hello {userName}</span>
                         <div className="dropdown-menu" aria-labelledby="dropdown05">
                             {isAdmin ? <Link className="dropdown-item" to="/AddBook">AddBook</Link> : null}
@@ -46,11 +46,6 @@ class Menu extends Component {
 
         return (
             <div className="collapse navbar-collapse">
-                <ul className="navbar-nav">
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/secret">Secret Page</Link>
-                    </li>
-                </ul>
                 {renderRightLinks()}
             </div>
         );

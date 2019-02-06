@@ -4,11 +4,10 @@ import { connect } from "react-redux";
 class NotificationDisplay extends Component {
     render() {
         const { errorMessage, successMessage } = this.props;
-
         return (
             <div>
                 <p style={{"color":"green"}}>{successMessage}</p>
-                <p style={{"color":"red"}}>{errorMessage}</p>
+                <p style={{"color":"#dc3545"}}>{errorMessage}</p>
             </div>
         )
     }

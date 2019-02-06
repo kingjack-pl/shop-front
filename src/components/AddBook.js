@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import { addProduct } from "../actions";
 
-import NotificationDisplay from "./NotificationDisplay";
+import requireIsAdmin from "./requireIsAdmin";
 
+import NotificationDisplay from "./NotificationDisplay";
 
 import { Multiselect } from "react-widgets";
 
@@ -96,6 +97,7 @@ class AddBook extends Component {
     }
 }
 export default compose(
+    requireIsAdmin,
     reduxForm({form: "AddProduct"}),
     connect(null, { addProduct })
 )(AddBook);

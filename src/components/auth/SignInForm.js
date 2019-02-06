@@ -6,6 +6,7 @@ import { signIn } from "../../actions";
 import { Link } from "react-router-dom";
 
 import Loader from "../Loader";
+import NotificationDisplay from "../NotificationDisplay";
 
 class SignInForm extends Component {
 	state = { loading: false };
@@ -34,11 +35,11 @@ class SignInForm extends Component {
 	);
 
 	render() {
-		const { handleSubmit, errorMessage } = this.props;
 		return (
 			<div className="fullPage">
-				<Loader loading={errorMessage ? false : this.state.loading}/>
-				<form onSubmit={handleSubmit(this.onSubmit)} className="login-form">
+				<Loader loading={this.state.loading}/>
+				<form onSubmit={this.props.handleSubmit(this.onSubmit)} className="login-form">
+					<NotificationDisplay />
 					<h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
 					<Field
 						name="username"
@@ -53,9 +54,6 @@ class SignInForm extends Component {
 						component={this.renderField}
 
 					/>
-					<div className="">
-						{errorMessage}
-					</div>
 					<p>New to shopFront? <Link to="/signup">Create an account</Link>.</p>
 					<button className="btn btn-lg btn-primary btn-block">Sign in</button>
 				</form>
@@ -78,11 +76,7 @@ const validate = ({ login, password }) => {
 	return errors
 };
 
-const mapStateToProps = ({ auth: { errorMessage } }) => ({
-	errorMessage
-});
-
 export default compose(
 	reduxForm({validate, form: "SignIn"}),
-	connect(mapStateToProps, { signIn })
+	connect(null, { signIn })
 )(SignInForm);

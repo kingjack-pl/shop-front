@@ -9,7 +9,6 @@ import rootReducer from "./reducers";
 
 import App from "./components/App";
 import Home from "./components/Home";
-import SecretPage from "./components/SecretPage";
 import Cart from "./components/Cart";
 import NotFound from "./components/NotFound";
 
@@ -25,7 +24,7 @@ const user = JSON.parse(localStorage.getItem("user")) || {};
 const defaultState = {
 	auth: {
 		isLogin: isLogin(user.token),
-		isAdmin: isAdmin(user.role),
+		isAdmin: isAdmin(user.roles),
 		userName: user.username,
 	}
 };
@@ -40,7 +39,6 @@ ReactDOM.render(
 					<Route path="/" exact component={ Home }/>
 					<Route path="/signin" component={ withRouter(SignInForm) }/>
 					<Route path="/signup" component={ withRouter(SignUpForm) }/>
-					<Route path="/secret" component={ SecretPage }/>
 					<Route path="/cart" component={ Cart }/>
 					<Route path="/signout" component={ SignOut }/>
 					<Route path="/addbook" component={ withRouter(AddBook) }/>

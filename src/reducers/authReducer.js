@@ -1,11 +1,10 @@
-import { AUTH_USER, AUTH_ERR } from "../actions/types";
+import { AUTH_USER } from "../actions/types";
 import { isLogin, isAdmin } from "../actions/helpers";
 
 const INIT = {
 	isLogin: false,
 	isAdmin: false,
-	userName: "TEST",
-	errorMessage: ""
+	userName: ""
 };
 
 export default (state = INIT, action) => {
@@ -13,9 +12,7 @@ export default (state = INIT, action) => {
 
 	switch (type) {
 		case AUTH_USER:
-			return { ...state, isLogin: isLogin(payload.token), isAdmin: isAdmin(payload.role), userName: payload.username  };
-		case AUTH_ERR:
-			return { ...state, errorMessage: payload };
+			return { ...state, isLogin: isLogin(payload.token), isAdmin: isAdmin(payload.roles), userName: payload.username };
 		default:
 			return state;
 	}
