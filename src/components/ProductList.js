@@ -14,10 +14,7 @@ class ProductList extends Component {
         const { arrProductsList, arrCartItemsId } = this.props;
 
         const renderProductsList = () => {
-            return arrProductsList.map(product => {
-                const id = arrProductsList.indexOf(product);
-                return <Product key={id} data={product} isInCart={arrCartItemsId.includes(id)} id={id} />
-            })
+            return arrProductsList.map( product => <Product key={product.id} data={product} isInCart={arrCartItemsId.includes(product.id)} /> )
         };
 
         return (

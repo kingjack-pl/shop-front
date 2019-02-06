@@ -6,8 +6,10 @@ import { addToCart, removeFromCart } from "../actions";
 class Product extends Component {
 
     render() {
-        const { data: { title, author, price, description, categories, photo }, isInCart, id, addToCart, removeFromCart } = this.props;
+        const { data: { id, title, author, price, description, categories, photo }, isInCart, addToCart, removeFromCart } = this.props;
+
         let btnAddOrRemoveFromCart;
+
         if (isInCart) {
             btnAddOrRemoveFromCart = (
                 <button

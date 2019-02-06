@@ -1,8 +1,5 @@
 import axios from "axios";
 import { API_URL } from "../Config";
-
-import data from "./data";
-
 import { ADD_ERROR, ADD_SUCCESS, AUTH_USER, AUTH_ERR, FETCH_PRODUCTS, ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART } from "./types";
 
 export const signIn = (formData, callback) => async dispatch => {
@@ -57,11 +54,8 @@ export const signOut = callback => {
 export const fetchProducts = () => async dispatch => {
 	try {
 		const response = await axios.get(
-			`${API_URL}products`
+			`${API_URL}products/all`
 		);
-
-		console.log("response", response.data);
-
 		dispatch({
 			type: FETCH_PRODUCTS,
 			payload: response.data
@@ -73,11 +67,6 @@ export const fetchProducts = () => async dispatch => {
 		});
 	}
 };
-
-// export const fetchProducts = () => ({
-// 	type: FETCH_PRODUCTS,
-// 	payload: data
-// });
 
 export const addProduct = formData => async dispatch => {
 	try {
