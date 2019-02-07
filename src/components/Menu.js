@@ -15,7 +15,7 @@ class Menu extends Component {
                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Hello {userName}</span>
                         <div className="dropdown-menu" aria-labelledby="dropdown05">
                             {isAdmin ? <Link className="dropdown-item" to="/AddBook">AddBook</Link> : null}
-                            <Link className="dropdown-item" to="/cart">My order</Link>
+                            <Link className="dropdown-item" to="/orderlist">My order</Link>
                             <Link className="dropdown-item" to="/signout">Sign Out</Link>
                         </div>
                     </li>

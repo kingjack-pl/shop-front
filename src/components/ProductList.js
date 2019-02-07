@@ -11,10 +11,10 @@ class ProductList extends Component {
     }
 
     render() {
-        const { arrProductsList, arrCartItemsId } = this.props;
+        const { arrProductsList, arrCartItemsId, isAdmin } = this.props;
 
         const renderProductsList = () => {
-            return arrProductsList.map( product => <Product key={product.id} data={product} isInCart={arrCartItemsId.includes(product.id)} /> )
+            return arrProductsList.map( product => <Product key={product.id} data={product} isInCart={arrCartItemsId.includes(product.id)} isAdmin={isAdmin} /> )
         };
 
         return (
@@ -27,9 +27,10 @@ class ProductList extends Component {
     }
 }
 
-const mapStateToProps = ({ products: { arrProductsList, arrCartItemsId } }) => ({
+const mapStateToProps = ({ products: { arrProductsList, arrCartItemsId }, auth: { isAdmin } }) => ({
     arrProductsList,
-    arrCartItemsId
+    arrCartItemsId,
+    isAdmin
 });
 
 export default connect(mapStateToProps, { fetchProducts })(ProductList);

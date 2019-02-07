@@ -1,4 +1,4 @@
-import { FETCH_PRODUCTS, ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART } from "../actions/types";
+import { FETCH_PRODUCTS, REMOVE_PRODUCTS, ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART } from "../actions/types";
 
 const init = {
 	arrProductsList: [],
@@ -11,6 +11,13 @@ export default function(state = init, action) {
 			return {
 				...state,
 				arrProductsList: action.payload
+			};
+		case REMOVE_PRODUCTS:
+			return {
+				...state,
+				arrProductsList: state.arrProductsList.filter(
+					product => product.id !== action.payload
+				)
 			};
 		case ADD_TO_CART:
 			return {

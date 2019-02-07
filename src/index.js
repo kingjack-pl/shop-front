@@ -11,11 +11,12 @@ import App from "./components/App";
 import Home from "./components/Home";
 import Cart from "./components/Cart";
 import NotFound from "./components/NotFound";
+import AddProduct from "./components/AddProduct";
+import OrderList from "./components/OrderList";
 
 import SignInForm from "./components/auth/SignInForm";
 import SignUpForm from "./components/auth/SignUpForm";
 import SignOut from "./components/auth/SignOut";
-import AddBook from "./components/AddBook";
 
 import { isLogin, isAdmin } from "./actions/helpers";
 
@@ -26,6 +27,7 @@ const defaultState = {
 		isLogin: isLogin(user.token),
 		isAdmin: isAdmin(user.roles),
 		userName: user.username,
+		token: user.token
 	}
 };
 
@@ -41,7 +43,8 @@ ReactDOM.render(
 					<Route path="/signup" component={ withRouter(SignUpForm) }/>
 					<Route path="/cart" component={ Cart }/>
 					<Route path="/signout" component={ SignOut }/>
-					<Route path="/addbook" component={ withRouter(AddBook) }/>
+					<Route path="/addbook" component={ withRouter(AddProduct) }/>
+					<Route path="/orderlist" component={ OrderList }/>
 					<Route component={ NotFound }/>
 				</Switch>
 			</App>

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { addToCart, removeFromCart, removeProduct } from "../actions";
 
-class Product extends Component {
+class Order extends Component {
     render() {
         const { data: { id, title, author, price, description, categories, photo }, isInCart, isAdmin, addToCart, removeFromCart, removeProduct } = this.props;
 
@@ -53,4 +53,4 @@ class Product extends Component {
     }
 }
 
-export default connect(null, { addToCart, removeFromCart, removeProduct })(Product);
+export default connect(null, { addToCart, removeFromCart, removeProduct })(Order);

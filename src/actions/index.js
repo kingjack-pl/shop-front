@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_URL } from "../Config";
-import { ADD_ERROR, ADD_SUCCESS, AUTH_USER, FETCH_PRODUCTS, ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART } from "./types";
+import { ADD_ERROR, ADD_SUCCESS, AUTH_USER, FETCH_PRODUCTS, REMOVE_PRODUCTS, FETCH_ORDERS, ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART } from "./types";
 
 const authUser = token => {
 	return axios.post(`${API_URL}me`,null, {headers:{"Authorization" : "Bearer " + token}});
@@ -14,11 +14,11 @@ export const signIn = (formData, callback) => async dispatch => {
 		);
 		const responseAuth = await authUser(responseSignIn.data.token);
 		const response = Object.assign(responseSignIn.data, responseAuth.data);
-		localStorage.setItem("user", JSON.stringify(response));
 		dispatch({
 			type: AUTH_USER,
 			payload: response
 		});
+		localStorage.setItem("user", JSON.stringify(response));
 		callback();
 	} catch (e) {
 		dispatch({
@@ -30,15 +30,17 @@ export const signIn = (formData, callback) => async dispatch => {
 
 export const signUp = (formData, callback) => async dispatch => {
 	try {
-		const response = await axios.post(
+		const responseSignUp = await axios.post(
 			`${API_URL}auth/signup`,
 			formData
 		);
+		const responseAuth = await authUser(responseSignUp.data.token);
+		const response = Object.assign(responseSignUp.data, responseAuth.data);
 		dispatch({
 			type: AUTH_USER,
-			payload: response.data
+			payload: response
 		});
-		localStorage.setItem("user", JSON.stringify(response.data));
+		localStorage.setItem("user", JSON.stringify(response));
 		callback();
 	} catch (e) {
 		dispatch({
@@ -74,16 +76,50 @@ export const fetchProducts = () => async dispatch => {
 	}
 };
 
-export const addProduct = formData => async dispatch => {
+export const addProduct = formData => async (dispatch, getState) => {
 	try {
-		const user = JSON.parse(localStorage.getItem("user"));
-		const token = user.token;
+		const state = getState();
+		const token = state.auth.token;
 		await axios.post(`${API_URL}products/addauth`,
 			formData, {headers:{"Authorization" : "Bearer " + token}});
 		dispatch({
 			type: ADD_SUCCESS,
 			payload: "The product has been added successfully!"
 		});
+	} catch (e) {
+		dispatch({
+			type: ADD_ERROR,
+			payload: e.message
+		});
+	}
+};
+
+export const updateProduct = (id, formData) => async (dispatch, getState) => {
+	try {
+		const state = getState();
+		const token = state.auth.token;
+		await axios.put(`${API_URL}products/${id}`, formData, {headers:{"Authorization" : "Bearer " + token}});
+		dispatch({
+			type: ADD_SUCCESS,
+			payload: "The product has been updated successfully!"
+		});
+	} catch (e) {
+		dispatch({
+			type: ADD_ERROR,
+			payload: e.message
+		});
+	}
+};
+
+export const removeProduct = id => async (dispatch, getState) => {
+	try {
+		const state = getState();
+		const token = state.auth.token;
+		dispatch({
+			type: REMOVE_PRODUCTS,
+			payload: id
+		});
+		await axios.delete(`${API_URL}products/${id}`, {headers:{"Authorization" : "Bearer " + token}});
 	} catch (e) {
 		dispatch({
 			type: ADD_ERROR,
@@ -106,11 +142,28 @@ export const removeAllFromCart = () => ({
 	type: REMOVE_ALL_FROM_CART
 });
 
-export const addOrder = arrCartItems => async dispatch =>{
+export const fetchOrders = () => async dispatch => {
 	try {
-		const user = JSON.parse(localStorage.getItem("user"));
-		const token = user.token;
-		await axios.post(`${API_URL}products/addauth`,
+		const response = await axios.get(
+			`${API_URL}orders/all`
+		);
+		dispatch({
+			type: FETCH_ORDERS,
+			payload: response.data
+		});
+	} catch (e) {
+		dispatch({
+			type: ADD_ERROR,
+			payload: e.message
+		});
+	}
+};
+
+export const addOrder = arrCartItems => async (dispatch, getState) => {
+	try {
+		const state = getState();
+		const token = state.auth.token;
+		await axios.post(`${API_URL}orders/addauth`,
 			arrCartItems, {headers:{"Authorization" : "Bearer " + token}});
 		dispatch({
 			type: ADD_SUCCESS,

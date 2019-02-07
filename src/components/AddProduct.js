@@ -12,7 +12,7 @@ import { Multiselect } from "react-widgets";
 
 import 'react-widgets/dist/css/react-widgets.css';
 
-class AddBook extends Component {
+class AddProduct extends Component {
     onSubmit = values => {
         this.props.addProduct(values);
     };
@@ -48,11 +48,9 @@ class AddBook extends Component {
     );
 
     render() {
-        const { handleSubmit } = this.props;
-
         return(
             <div className="fullPage">
-                <form onSubmit={handleSubmit(this.onSubmit)} className="login-form">
+                <form onSubmit={this.props.handleSubmit(this.onSubmit)} className="login-form">
                     <NotificationDisplay />
                     <h1 className="h3 mb-3 font-weight-normal">Add Product</h1>
                     <Field
@@ -100,4 +98,4 @@ export default compose(
     requireIsAdmin,
     reduxForm({form: "AddProduct"}),
     connect(null, { addProduct })
-)(AddBook);
+)(AddProduct);
