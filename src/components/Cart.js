@@ -22,9 +22,6 @@ class Cart extends Component {
     render() {
         const { arrProductsList, arrCartItemsId, removeAllFromCart, addOrder } = this.props;
         const arrCartItems = arrCartItemsId.map( cartItemId => arrProductsList.find(product => product.id === cartItemId));
-
-        console.log(arrCartItems);
-
         const renderCartItems = arrCartItems.map( cartItem => <li key={cartItem.id} className="list-group-item d-flex justify-content-between align-items-center">{cartItem.title}<span
             className="badge badge-primary badge-pill">{cartItem.price} $</span></li> );
         const totalCost = arrCartItems.reduce( (prev, curr) => prev + curr.price, 0 );

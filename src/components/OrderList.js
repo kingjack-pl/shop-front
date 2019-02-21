@@ -25,8 +25,6 @@ class OrderList extends Component {
         //     return this.props.arrOrdersList.map( order => <Order key={order.id} data={order} /> )
         // };
 
-        console.log(this.props.arrOrdersList);
-
         return (
             <div className="container">
                 <div className="row">

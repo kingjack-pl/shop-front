@@ -1,4 +1,8 @@
+
+export const AUTH_USER_REQUEST = "auth_user_request";
 export const AUTH_USER = "auth_user";
+
+export const FETCH_PRODUCTS_REQUEST = "fetch_products_request";
 export const FETCH_PRODUCTS = "fetch_products";
 export const REMOVE_PRODUCTS = "remove_products";
 export const FETCH_ORDERS = "fetch_orders";

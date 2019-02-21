@@ -1,6 +1,6 @@
 import axios from "axios";
 import { API_URL } from "../Config";
-import { ADD_ERROR, ADD_SUCCESS, AUTH_USER, FETCH_PRODUCTS, REMOVE_PRODUCTS, FETCH_ORDERS, ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART } from "./types";
+import { ADD_ERROR, ADD_SUCCESS, AUTH_USER_REQUEST, AUTH_USER, FETCH_PRODUCTS_REQUEST, FETCH_PRODUCTS, REMOVE_PRODUCTS, FETCH_ORDERS, ADD_TO_CART, REMOVE_FROM_CART, REMOVE_ALL_FROM_CART } from "./types";
 
 const authUser = token => {
 	return axios.post(`${API_URL}me`,null, {headers:{"Authorization" : "Bearer " + token}});
@@ -8,6 +8,9 @@ const authUser = token => {
 
 export const signIn = (formData, callback) => async dispatch => {
 	try {
+		dispatch({
+			type: AUTH_USER_REQUEST
+		});
 		const responseSignIn = await axios.post(
 			`${API_URL}auth/signin`,
 			formData
@@ -30,6 +33,9 @@ export const signIn = (formData, callback) => async dispatch => {
 
 export const signUp = (formData, callback) => async dispatch => {
 	try {
+		dispatch({
+			type: AUTH_USER_REQUEST
+		});
 		const responseSignUp = await axios.post(
 			`${API_URL}auth/signup`,
 			formData
@@ -61,6 +67,9 @@ export const signOut = callback => {
 
 export const fetchProducts = () => async dispatch => {
 	try {
+		dispatch({
+			type: FETCH_PRODUCTS_REQUEST
+		});
 		const response = await axios.get(
 			`${API_URL}products/all`
 		);
